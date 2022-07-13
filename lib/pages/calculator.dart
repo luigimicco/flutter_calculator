@@ -141,55 +141,29 @@ Widget _buildButtons() {
         physics: const NeverScrollableScrollPhysics(),
         padding: const EdgeInsets.all(8),
         children: buttonNames.map<Widget>((e) {
-          switch (e) {
-            case "+":
-            case "×":
-            case "−":
-            case "÷": // Operation buttons
-              return _button(e, true);
-            default:
-              return _button(e, false);
-          }
+          return _button(e);
         }).toList()),
   );
 }
 
-// Normal button
-Widget _button(text, bool operator) {
+// Buttons
+Widget _button(text) {
   return Padding(
-    padding: const EdgeInsets.all(8),
-    child: Material(
-      borderRadius: const BorderRadius.all(Radius.circular(100)), // Circular
-      color: operator
-          ? const Color.fromRGBO(237, 65, 53, 1)
-          : const Color.fromRGBO(230, 230, 230, 1),
-      child: CircleAvatar(
-        backgroundColor: Colors.transparent,
-        child: LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints constraints) {
-          return InkWell(
-            // Ripple Effect
-            borderRadius: const BorderRadius.all(Radius.circular(100)),
-            onTap: () {
-              //_buttonPressed(text);
-            },
-            child: Container(
-              // For ripple area
-              width: constraints.maxWidth,
-              height: constraints.maxHeight,
-              alignment: Alignment.center,
-              child: Text(
-                text,
-                style: const TextStyle(
-                  color: Color.fromRGBO(94, 94, 94, 1),
-                  fontSize: 30.0,
-                  fontWeight: FontWeight.w300,
-                ),
-              ),
+      padding: const EdgeInsets.all(8),
+      child: InkWell(
+        onTap: () {
+          //_buttonPressed(text);
+        },
+        child: Container(
+          alignment: Alignment.center,
+          child: Text(
+            text,
+            style: const TextStyle(
+              color: Color.fromRGBO(94, 94, 94, 1),
+              fontSize: 30.0,
+              fontWeight: FontWeight.w300,
             ),
-          );
-        }),
-      ),
-    ),
-  );
+          ),
+        ),
+      ));
 }
