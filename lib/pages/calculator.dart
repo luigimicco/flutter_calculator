@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 List buttonNames = [
   "7",
   "8",
   "9",
-  "÷",
+  "/",
   "4",
   "5",
   "6",
-  "×",
+  "*",
   "1",
   "2",
   "3",
-  "−",
+  "-",
   "0",
   ".",
   "C",
   "+",
-  "+/-",
+  "±",
   "(",
   ")",
   "="
@@ -102,13 +103,12 @@ class _CalculatorState extends State<Calculator> {
   void _buttonPressed(String text) {
     setState(() {
       if (text == "=") {
-        // calculate
-
+        expression = _evaluateEquation(expression);
       } else if (text == "C") {
         // Backspace
         expression = expression.substring(0, expression.length - 1);
         if (expression == "") expression = "0"; // If all empty
-      } else if (text == "+/-") {
+      } else if (text == "±") {
         // Plus/Minus
         if (expression != "0") {
           if (expression.substring(0, 1) != "-") {
@@ -123,5 +123,21 @@ class _CalculatorState extends State<Calculator> {
         expression += text;
       }
     });
+  }
+
+  String _evaluateEquation(String formula) {
+    try {
+      Expression exp = (Parser()).parse(formula);
+
+      double res = double.parse(
+          exp.evaluate(EvaluationType.REAL, ContextModel()).toString());
+
+      // Output correction for decimal results
+      return double.parse(res.toString()) == int.parse(res.toStringAsFixed(0))
+          ? res.toStringAsFixed(0)
+          : res.toStringAsFixed(4);
+    } catch (e) {
+      return "Errore";
+    }
   }
 }
