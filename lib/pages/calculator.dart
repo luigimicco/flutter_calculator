@@ -39,26 +39,29 @@ class _CalculatorState extends State<Calculator> {
     return MaterialApp(
         home: Scaffold(
       body: Column(children: <Widget>[
-        Container(
-            decoration: BoxDecoration(
-              // Bottom Divider
-              border: Border.all(
-                color: Colors.green,
-                width: 1,
-              ), //Border.all
-            ),
-            alignment: Alignment.topLeft,
-            child: Container(
-              padding: const EdgeInsets.fromLTRB(14, 8, 14, 0),
-              child: Text(
-                expression,
-                style: const TextStyle(
-                    color: Color.fromRGBO(227, 227, 227, 1),
-                    fontSize: 48,
-                    fontWeight: FontWeight.w400),
+        Expanded(
+          flex: 1,
+          child: Container(
+              decoration: BoxDecoration(
+                // Bottom Divider
+                border: Border.all(
+                  color: Colors.green,
+                  width: 1,
+                ), //Border.all
               ),
-            )),
-        _buildButtons(),
+              alignment: Alignment.topLeft,
+              child: Container(
+                padding: const EdgeInsets.fromLTRB(14, 8, 14, 0),
+                child: Text(
+                  expression,
+                  style: const TextStyle(
+                      color: Color.fromRGBO(227, 227, 227, 1),
+                      fontSize: 48,
+                      fontWeight: FontWeight.w400),
+                ),
+              )),
+        ),
+        Expanded(flex: 3, child: _buildButtons()),
       ]),
     ));
   }
