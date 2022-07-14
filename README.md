@@ -1,4 +1,5 @@
 # flutter_calculator
 
-A new Flutter project.
+a simple calculator.
 
+![](/screenshots/layout_finale.png)
