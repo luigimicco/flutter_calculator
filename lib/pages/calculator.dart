@@ -14,8 +14,8 @@ List buttonNames = [
   "3",
   "−",
   "0",
-  "00",
   ".",
+  "C",
   "+",
   "+/-",
   "(",
@@ -23,14 +23,40 @@ List buttonNames = [
   "="
 ];
 
-class Calculator extends StatelessWidget {
+String expression = "0";
+
+class Calculator extends StatefulWidget {
   const Calculator({Key? key}) : super(key: key);
 
+  @override
+  State<Calculator> createState() => _CalculatorState();
+}
+
+class _CalculatorState extends State<Calculator> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
       body: Column(children: <Widget>[
+        Container(
+            decoration: BoxDecoration(
+              // Bottom Divider
+              border: Border.all(
+                color: Colors.green,
+                width: 1,
+              ), //Border.all
+            ),
+            alignment: Alignment.topLeft,
+            child: Container(
+              padding: const EdgeInsets.fromLTRB(14, 8, 14, 0),
+              child: Text(
+                expression,
+                style: const TextStyle(
+                    color: Color.fromRGBO(227, 227, 227, 1),
+                    fontSize: 48,
+                    fontWeight: FontWeight.w400),
+              ),
+            )),
         _buildButtons(),
       ]),
     ));
@@ -57,7 +83,7 @@ class Calculator extends StatelessWidget {
         padding: const EdgeInsets.all(4),
         child: InkWell(
           onTap: () {
-            // event on press
+            _buttonPressed(text);
           },
           child: Container(
             alignment: Alignment.center,
@@ -71,5 +97,31 @@ class Calculator extends StatelessWidget {
             ),
           ),
         ));
+  }
+
+  void _buttonPressed(String text) {
+    setState(() {
+      if (text == "=") {
+        // calculate
+
+      } else if (text == "C") {
+        // Backspace
+        expression = expression.substring(0, expression.length - 1);
+        if (expression == "") expression = "0"; // If all empty
+      } else if (text == "+/-") {
+        // Plus/Minus
+        if (expression != "0") {
+          if (expression.substring(0, 1) != "-") {
+            expression = "-$expression";
+          } else {
+            expression = expression.substring(1);
+          }
+        }
+      } else {
+        // Default
+        if (expression == "0" && text != ".") expression = "";
+        expression += text;
+      }
+    });
   }
 }
