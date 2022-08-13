@@ -37,33 +37,34 @@ class _CalculatorState extends State<Calculator> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: Scaffold(
-      body: Column(children: <Widget>[
-        Expanded(
-          flex: 1,
-          child: Container(
-              decoration: BoxDecoration(
-                // Bottom Divider
-                border: Border.all(
-                  color: Colors.green,
-                  width: 1,
-                ), //Border.all
-              ),
-              alignment: Alignment.topLeft,
+          body: Column(children: <Widget>[
+            Expanded(
+              flex: 1,
               child: Container(
-                padding: const EdgeInsets.fromLTRB(14, 8, 14, 0),
-                child: Text(
-                  expression,
-                  style: const TextStyle(
-                      color: Color.fromRGBO(227, 227, 227, 1),
-                      fontSize: 48,
-                      fontWeight: FontWeight.w400),
-                ),
-              )),
-        ),
-        Expanded(flex: 3, child: _buildButtons()),
-      ]),
-    ));
+                  decoration: BoxDecoration(
+                    // Bottom Divider
+                    border: Border.all(
+                      color: Colors.green,
+                      width: 1,
+                    ), //Border.all
+                  ),
+                  alignment: Alignment.topLeft,
+                  child: Container(
+                    padding: const EdgeInsets.fromLTRB(14, 8, 14, 0),
+                    child: Text(
+                      expression,
+                      style: const TextStyle(
+                          color: Color.fromRGBO(227, 227, 227, 1),
+                          fontSize: 48,
+                          fontWeight: FontWeight.w400),
+                    ),
+                  )),
+            ),
+            Expanded(flex: 3, child: _buildButtons()),
+          ]),
+        ));
   }
 
   // Grid of buttons
